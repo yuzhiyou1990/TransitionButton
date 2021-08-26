@@ -240,7 +240,8 @@ public extension UIImage {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return image
+        guard let cgImage = image!.cgImage else { return nil }
+        self.init(cgImage: cgImage)
     }
 }
 
