@@ -47,6 +47,14 @@ public enum StopAnimationStyle {
     @IBInspectable open var normalBackgroundColor: UIColor = UIColor.blue {
         didSet {
             self.setBackgroundImage(UIImage(color: normalBackgroundColor), for: .normal)
+            self.backgroundColor = enableBackgroundColor ? normalBackgroundColor : .clear
+        }
+    }
+    
+    /// the background of the button in disabled state
+    @IBInspectable open var enableBackgroundColor: Bool = true {
+        didSet {
+            self.backgroundColor = enableBackgroundColor ? normalBackgroundColor : .clear
         }
     }
     
