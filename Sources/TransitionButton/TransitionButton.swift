@@ -39,7 +39,14 @@ public enum StopAnimationStyle {
     /// the background of the button in disabled state
     @IBInspectable open var disabledBackgroundColor: UIColor = UIColor.lightGray {
         didSet {
-            self.setBackgroundImage(UIImage.createImage(color: disabledBackgroundColor), for: .disabled)
+            self.setBackgroundImage(UIImage(color: disabledBackgroundColor), for: .disabled)
+        }
+    }
+    
+    /// the background of the button in disabled state
+    @IBInspectable open var normalBackgroundColor: UIColor = UIColor.blue {
+        didSet {
+            self.setBackgroundImage(UIImage(color: normalBackgroundColor), for: .normal)
         }
     }
     
@@ -242,17 +249,6 @@ public extension UIImage {
         
         guard let cgImage = image!.cgImage else { return nil }
         self.init(cgImage: cgImage)
-    }
-    
-    static func createImage(color: UIColor) -> UIImage {
-        let rect = CGRect.init(x: 0.0, y: 0.0, width: 1.0, height: 1.0)
-        UIGraphicsBeginImageContext(rect.size)
-        let context = UIGraphicsGetCurrentContext()
-        context?.setFillColor(color.cgColor)
-        context?.fill(rect)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image!
     }
 }
 
