@@ -1,20 +1,23 @@
-// swift-tools-version:5.0
+// swift-tools-version: 5.7
 
 import PackageDescription
 
 let package = Package(
     name: "TransitionButton",
     platforms: [
-        .iOS(.v9)
+        .iOS(.v13)
     ],
     products: [
         .library(
             name: "TransitionButton",
             targets: ["TransitionButton"]),
     ],
+    dependencies: [
+    ],
     targets: [
         .target(
             name: "TransitionButton",
-            dependencies: []),
+            dependencies: []
+        )
     ]
 )
