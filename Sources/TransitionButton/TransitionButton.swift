@@ -36,28 +36,6 @@ public enum StopAnimationStyle {
         }
     }
     
-    /// the background of the button in disabled state
-    @IBInspectable open var disabledBackgroundColor: UIColor = UIColor.lightGray {
-        didSet {
-            self.setBackgroundImage(UIImage(color: disabledBackgroundColor), for: .disabled)
-        }
-    }
-    
-    /// the background of the button in disabled state
-    @IBInspectable open var normalBackgroundColor: UIColor = UIColor.blue {
-        didSet {
-            self.setBackgroundImage(UIImage(color: normalBackgroundColor), for: .normal)
-            self.backgroundColor = enableBackgroundColor ? normalBackgroundColor : .clear
-        }
-    }
-    
-    /// the background of the button in disabled state
-    @IBInspectable open var enableBackgroundColor: Bool = true {
-        didSet {
-            self.backgroundColor = enableBackgroundColor ? normalBackgroundColor : .clear
-        }
-    }
-    
     /// the corner radius value to have a button with rounded corners.
     @IBInspectable open var cornerRadius: CGFloat = 0 {
         didSet {
@@ -243,21 +221,6 @@ public enum StopAnimationStyle {
         CATransaction.commit()
     }
     
-}
-
-
-public extension UIImage {
-    convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
-        let rect = CGRect(origin: .zero, size: size)
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
-        color.setFill()
-        UIRectFill(rect)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        guard let cgImage = image!.cgImage else { return nil }
-        self.init(cgImage: cgImage)
-    }
 }
 
 
