@@ -50,6 +50,7 @@ public enum StopAnimationStyle {
     private var cachedTitle: String?
     private var cachedImage: UIImage?
     private var cachedBounds: CGRect?
+    private var cacheConfiguration: Any?
     
     private let springGoEase:CAMediaTimingFunction  = CAMediaTimingFunction(controlPoints: 0.45, -0.36, 0.44, 0.92)
     private let shrinkCurve:CAMediaTimingFunction   = CAMediaTimingFunction(name: .linear)
@@ -89,6 +90,13 @@ public enum StopAnimationStyle {
         self.cachedTitle            = title(for: .normal)  // cache title before animation of spiner
         self.cachedImage            = image(for: .normal)  // cache image before animation of spiner
         self.cachedBounds           = bounds // cache bounds before animation of spinner
+        
+        if #available(iOS 15.0, *) {
+            self.cacheConfiguration = self.configuration
+            self.configuration?.title = nil
+            self.configuration?.attributedTitle = nil
+            self.configuration?.image = nil
+        }
         
         self.setTitle("",  for: .normal)                    // place an empty string as title to display a spiner
         self.setImage(nil, for: .normal)                    // remove the image, if any, before displaying the spinner
@@ -160,6 +168,14 @@ public enum StopAnimationStyle {
         self.spiner.stopAnimation()
         self.setTitle(self.cachedTitle, for: .normal)
         self.setImage(self.cachedImage, for: .normal)
+        
+        if #available(iOS 15.0, *) {
+            let configuration = self.cacheConfiguration as? UIButton.Configuration
+            self.configuration?.title = configuration?.title
+            self.configuration?.attributedTitle = configuration?.attributedTitle
+            self.configuration?.image = configuration?.image
+        }
+        
         self.isUserInteractionEnabled = true // enable again the user interaction
         self.layer.cornerRadius = self.cornerRadius
     }
@@ -219,6 +235,3 @@ public enum StopAnimationStyle {
     }
     
 }
-
-
-
