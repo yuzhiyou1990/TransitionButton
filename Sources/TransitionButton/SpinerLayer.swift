@@ -36,7 +36,6 @@ class SpinerLayer: CAShapeLayer {
 
     override init(layer: Any) {
         super.init(layer: layer)
-
     }
     
     func animation() {

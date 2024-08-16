@@ -22,9 +22,6 @@ public enum StopAnimationStyle {
     case shake
 }
 
-
-
-
 /// UIButton sublass for loading and transition animation. Useful for network based application or where you need to animate an action button while doing background tasks.
  
 @IBDesignable open class TransitionButton : UIButton, UIViewControllerTransitioningDelegate, CAAnimationDelegate {
@@ -112,7 +109,7 @@ public enum StopAnimationStyle {
      - Parameter completion: a callback closure to be called once the animation finished, it may be useful to transit to another view controller, example transit to the home screen from the login screen.
      
      */
-    open func stopAnimation(animationStyle:StopAnimationStyle = .normal, revertAfterDelay delay: TimeInterval = 1.0, completion:(()->Void)? = nil) {
+    open func stopAnimation(animationStyle: StopAnimationStyle = .normal, revertAfterDelay delay: TimeInterval = 0, completion:(() -> Void)? = nil) {
 
         let delayToRevert = max(delay, 0.2)
 
@@ -134,7 +131,7 @@ public enum StopAnimationStyle {
         }
     }
     
-    private func shakeAnimation(completion:(()->Void)?) {
+    private func shakeAnimation(completion: ( () -> Void)?) {
         let keyFrame = CAKeyframeAnimation(keyPath: "position")
         let point = self.layer.position
         keyFrame.values = [NSValue(cgPoint: CGPoint(x: CGFloat(point.x), y: CGFloat(point.y))),
@@ -158,7 +155,7 @@ public enum StopAnimationStyle {
         CATransaction.commit()
     }
     
-    private func setOriginalState(completion:(()->Void)?) {
+    private func setOriginalState(completion: ( () -> Void)?) {
         self.animateToOriginalWidth(completion: completion)
         self.spiner.stopAnimation()
         self.setTitle(self.cachedTitle, for: .normal)
